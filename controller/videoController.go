@@ -13,9 +13,9 @@ type VideoController interface {
 }
 
 //Returns the memory location of a new element of type VideoController Interface, receives the corresponding service
-func NewController(service service.VideoService) VideoController {
+func NewController(s service.VideoService) VideoController {
 	return &videoController{
-		service: service,
+		service: s,
 	}
 }
 

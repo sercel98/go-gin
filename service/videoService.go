@@ -7,14 +7,15 @@ type VideoService interface {
 	Save(entity.Video) entity.Video
 	FindAll() []entity.Video
 }
-//Returns the memory location of a new element of type VideoService.
-func NewVideoService() VideoService {
-	return &videoService{}
-}
 
 //Struct - Implements VideoService Interface
 type videoService struct {
 	videos []entity.Video
+}
+
+//Returns the memory location of a new element of type VideoService.
+func NewVideoService() VideoService {
+	return &videoService{}
 }
 
 //Adds an Video to the slice of videos

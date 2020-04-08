@@ -9,6 +9,10 @@ import (
 var (
 	videoService    service.VideoService       = service.NewVideoService()
 	videoController controller.VideoController = controller.NewController(videoService)
+	articleService    = service.NewArticleService()
+	articleController  = controller.NewArticleController(articleService)
+
+
 )
 
 func main() {
