@@ -2,36 +2,36 @@ package service
 
 import (
 	"errors"
-	"github.com/sercel98/go-gin/entity"
+	"github.com/sercel98/go-gin/models"
 )
 
 type ArticleService interface {
-	SaveArticle(article entity.Article) entity.Article
-	FindAllArticles() []entity.Article
-	FindOneArticle(title string) (entity.Article, error)
+	SaveArticle(article models.Article) models.Article
+	FindAllArticles() []models.Article
+	FindOneArticle(title string) (models.Article, error)
 }
 
 //Struct - Implements ArticleService Interface
 type articleService struct {
-	articles []entity.Article
+	articles []models.Article
 }
 
 func NewArticleService() ArticleService {
 	return &articleService{}
 }
 
-func (a *articleService) SaveArticle(article entity.Article) entity.Article {
+func (a *articleService) SaveArticle(article models.Article) models.Article {
 	a.articles = append(a.articles, article)
 	return article
 }
 
-func (a *articleService) FindAllArticles() []entity.Article {
+func (a *articleService) FindAllArticles() []models.Article {
 	return a.articles
 }
 
-func (a *articleService) FindOneArticle(title string) (entity.Article, error) {
+func (a *articleService) FindOneArticle(title string) (models.Article, error) {
 
-	var article entity.Article
+	var article models.Article
 	for _, art := range a.articles {
 		if art.Title == title {
 			article = art
