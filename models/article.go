@@ -1,8 +1,8 @@
-package entity
+package models
 
 import "time"
 
-//Struct Article represents an Article entity with his attributes
+//Struct Article represents an Article models with his attributes
 type Article struct {
 	Title         string
 	Author        string
