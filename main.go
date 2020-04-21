@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	c "github.com/sercel98/go-gin/config"
 	"github.com/sercel98/go-gin/controller"
+	"github.com/sercel98/go-gin/database"
 	"github.com/sercel98/go-gin/service"
 	"github.com/spf13/viper"
 	"strconv"
@@ -41,13 +41,9 @@ func main() {
 		fmt.Printf("Unable to decode into struct, %v", err)
 	}
 
-	//Connect to database
-	//TODO: Make this a struct and implement singleton
-	db, err := gorm.Open("postgres", "host="+config.Database.DBHost+" port=5432 user="+
-		config.Database.DBUser+" dbname="+config.Database.DBName+" password="+config.Database.DBName)
-
+	db := database.NewPgConnection(&config)
 	//Define a close operation at the end of the method
-	defer db.Close()
+	db.CreateTables()
 
 	server := gin.Default()
 	server.GET("/videos", func(context *gin.Context) {
