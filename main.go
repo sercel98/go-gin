@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	c "github.com/sercel98/go-gin/config"
 	"github.com/sercel98/go-gin/controller"
 	"github.com/sercel98/go-gin/database"
 	"github.com/sercel98/go-gin/service"
-	"github.com/spf13/viper"
 	"strconv"
 )
 
@@ -22,26 +20,12 @@ var (
 
 func main() {
 
-	//viper is used to read a config.yml file where is specified the server's port and the database configutarion
-	viper.SetConfigName("config")
-	viper.AddConfigPath("./config")
-	viper.SetConfigType("yml")
 
-	//Create a variable for the interface Configurations, later it will be used to unmarshal the yml
-	var config c.Configurations
 
-	//Read the config file. Check for errors also.
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("Error reading config file, %s", err)
-	}
 
-	//decode the yml into the interface
-	err := viper.Unmarshal(&config)
-	if err != nil {
-		fmt.Printf("Unable to decode into struct, %v", err)
-	}
+	config := c.NewConfiguration()
 
-	db := database.NewPgConnection(&config)
+	db := database.NewPgConnection(config)
 	//Define a close operation at the end of the method
 	db.CreateTables()
 
